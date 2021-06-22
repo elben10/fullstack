@@ -2,9 +2,9 @@ apiVersion: skaffold/v2beta17
 kind: Config
 build:
   artifacts:
-    - image: whoami
+    - image: frontend
       docker:
-        dockerfile: images/whoami/Dockerfile
+        dockerfile: images/frontend/Dockerfile
   local:
     concurrency: 0
     useBuildkit: true
@@ -13,3 +13,6 @@ deploy:
     releases:
       - name: fullstack
         chartPath: chart
+        artifactOverrides:
+          FrontendImage: frontend
+         
