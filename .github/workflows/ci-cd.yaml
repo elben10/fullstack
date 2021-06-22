@@ -15,7 +15,7 @@ jobs:
           curl -Lo skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
           sudo install skaffold /usr/local/bin/
       - name: Build images
-        run: skaffold run
+        run: skaffold run -p dev
   Deploy:
     if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') }}
     needs: Test

@@ -5,6 +5,17 @@ build:
     - image: frontend
       docker:
         dockerfile: images/frontend/Dockerfile
+      sync: 
+        manual:
+          - dest: /app
+            src: src/frontend/**/*.css
+            strip: src/frontend
+          - dest: /app
+            src: src/frontend/**/*.ts
+            strip: src/frontend
+          - dest: /app
+            src: src/frontend/**/*.tsx
+            strip: src/frontend
   local:
     concurrency: 0
     useBuildkit: true
@@ -15,4 +26,9 @@ deploy:
         chartPath: chart
         artifactOverrides:
           FrontendImage: frontend
-         
+profiles:
+  - name: dev
+    patches:
+      - op: replace
+        path: /build/artifacts/0/docker/dockerfile
+        value: images/frontend/Dockerfile.Dev
