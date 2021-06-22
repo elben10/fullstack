@@ -5,6 +5,9 @@ build:
     - image: whoami
       docker:
         dockerfile: images/whoami/Dockerfile
+  local:
+    concurrency: 0
+    useBuildkit: true
 deploy:
   helm:
     releases:
