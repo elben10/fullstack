@@ -1,0 +1,7 @@
+apiVersion: skaffold/v2beta17
+kind: Config
+build:
+  artifacts:
+    - image: whoami
+      docker:
+        dockerfile: images/whoami/Dockerfile

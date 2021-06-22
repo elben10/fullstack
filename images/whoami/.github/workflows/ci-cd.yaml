@@ -1,0 +1,16 @@
+name: GitHub Actions - CI/CD
+on: [push, pull_request]
+env:
+  SKAFFOLD_VERSION: v1.26.1
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Prep: Check out repository code"
+        uses: actions/checkout@v2
+      - name: "Prep: Install skaffold"
+        run: |
+          curl -Lo skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
+          sudo install skaffold /usr/local/bin/
+      - name: Build images
+        run: skaffold build
