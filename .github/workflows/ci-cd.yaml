@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: "Prep: Check out repository code"
         uses: actions/checkout@v2
+      - name: "Prep: Start minikube"
+        run: minikube start
       - name: "Prep: Install skaffold"
         run: |
           curl -Lo skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
