@@ -17,7 +17,6 @@ jobs:
       - name: Build images
         run: skaffold run
   Deploy:
-    if: ${{ github.event_name == 'push' && (github.event.action == 'unassigned') }}
     needs: Test
     runs-on: ubuntu-latest
     env: 
