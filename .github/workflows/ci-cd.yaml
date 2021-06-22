@@ -17,6 +17,7 @@ jobs:
       - name: Build images
         run: skaffold run
   Deploy:
+    if: ${{ github.event_name == 'push' && (github.event.action == 'unassigned') }}
     needs: Test
     runs-on: ubuntu-latest
     env: 
@@ -30,9 +31,9 @@ jobs:
       - name: "Prep: Login into Github Container Registry"
         uses: docker/login-action@v1
         with:
-          registry: ${CONTAINER_REGISTRY}
-          username: ${CONTAINER_REGISTRY_USERNAME}
-          password: ${CONTAINER_REGISTRY_PASSWORD}
+          registry: ${{ env.CONTAINER_REGISTRY }}
+          username: ${{ env.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ env.CONTAINER_REGISTRY_PASSWORD }}
       - name: "Prep: Install skaffold"
         run: |
           curl -Lo skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
