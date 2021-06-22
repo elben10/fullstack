@@ -5,3 +5,8 @@ build:
     - image: whoami
       docker:
         dockerfile: images/whoami/Dockerfile
+deploy:
+  helm:
+    releases:
+      - name: fullstack
+        chartPath: chart
