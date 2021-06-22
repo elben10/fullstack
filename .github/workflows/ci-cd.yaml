@@ -21,15 +21,18 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       SKAFFOLD_DEFAULT_REPO: ghcr.io/${{ github.repository_owner }}
+      CONTAINER_REGISTRY: ghcr.io
+      CONTAINER_REGISTRY_USERNAME: ${{ github.actor }}
+      CONTAINER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: "Prep: Check out repository code"
         uses: actions/checkout@v2
       - name: "Prep: Login into Github Container Registry"
         uses: docker/login-action@v1
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${CONTAINER_REGISTRY}
+          username: ${CONTAINER_REGISTRY_USERNAME}
+          password: ${CONTAINER_REGISTRY_PASSWORD}
       - name: "Prep: Install skaffold"
         run: |
           curl -Lo skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/${SKAFFOLD_VERSION}/skaffold-linux-amd64 && \
