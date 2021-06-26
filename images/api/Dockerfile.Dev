@@ -1,0 +1,14 @@
+FROM python:3.8-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache poetry && \
+    poetry config virtualenvs.create false
+
+COPY src/api/pyproject.toml src/api/poetry.lock* /app/
+
+RUN poetry install --no-root
+
+COPY src/api/ /app/
+
+CMD python -m uvicorn --reload --port 80 --host 0.0.0.0 src.main:app
