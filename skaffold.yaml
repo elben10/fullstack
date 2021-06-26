@@ -16,6 +16,14 @@ build:
           - dest: /app
             src: src/frontend/**/*.tsx
             strip: src/frontend
+    - image: api
+      docker:
+        dockerfile: images/api/Dockerfile
+      sync: 
+        manual:
+          - dest: /app
+            src: src/api/**/*.py
+            strip: src/api
   local:
     concurrency: 0
     useBuildkit: true
@@ -25,6 +33,7 @@ deploy:
       - name: fullstack
         chartPath: chart
         artifactOverrides:
+          APIImage: api
           FrontendImage: frontend
 profiles:
   - name: dev
@@ -32,3 +41,6 @@ profiles:
       - op: replace
         path: /build/artifacts/0/docker/dockerfile
         value: images/frontend/Dockerfile.Dev
+      - op: replace
+        path: /build/artifacts/1/docker/dockerfile
+        value: images/api/Dockerfile.Dev
