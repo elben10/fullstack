@@ -35,6 +35,9 @@ deploy:
         artifactOverrides:
           APIImage: api
           FrontendImage: frontend
+        setValueTemplates:
+          POSTGRES_LOCAL_DATA_PATH: "{{ .POSTGRES_LOCAL_DATA_PATH }}"
+          POSTGRES_PASSWORD: "{{ .POSTGRES_PASSWORD }}"
 profiles:
   - name: dev
     patches:
